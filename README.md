@@ -1,4 +1,6 @@
-[# **BobChows - Enterprise-Level Ordering Platform**](https://bob-food-app-frontend.onrender.com)
+#[**BobChows - Enterprise-Level Ordering Platform**](https://bob-food-app-frontend.onrender.com)
+
+## Link to backend [BobChows backend code](https://github.com/benjaminbob21/bob-food-app-backend)
 
 Welcome to **BobChows**, an enterprise-level ordering platform built with the **MERN stack**. This project leverages modern technologies and best practices to deliver a seamless and secure ordering experience.
 
