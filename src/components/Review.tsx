@@ -23,11 +23,14 @@ const Review = () => {
     }
     try {
       await updateReview({ restaurantId, rating, comment });
-      await queryClient.invalidateQueries(["getReviews", restaurantId]);
-      await queryClient.invalidateQueries("fetchRestaurant");
+      await Promise.all([
+        queryClient.invalidateQueries(["getReviews", restaurantId]),
+        queryClient.invalidateQueries("fetchRestaurant"),
+      ]);
 
       setRating(0);
       setComment("");
+      toast.success("Review submitted successfully!");
     } catch (error: any) {
       toast.error(error.message);
     }
