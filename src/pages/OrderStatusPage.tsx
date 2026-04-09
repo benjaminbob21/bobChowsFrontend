@@ -1,4 +1,5 @@
 import { useGetMyOrders } from "@/api/OrderApi";
+import LottieAnimation from "@/components/Load";
 import OrderStatusDetail from "@/components/OrderStatusDetail";
 import OrderStatusHeader from "@/components/OrderStatusHeader";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -7,7 +8,7 @@ const OrderStatusPage = () => {
   const { orders, isLoading } = useGetMyOrders();
 
   if (isLoading) {
-    return "Loading...";
+    return <LottieAnimation/>;
   }
 
   if (!orders || orders.length === 0) {

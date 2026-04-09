@@ -1,4 +1,5 @@
 import { useCreateMyUser } from "@/api/MyUserApi";
+import LottieAnimation from "@/components/Load";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useEffect, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -25,7 +26,7 @@ const AuthCallbackPage = () => {
     }
   }, [user, createUser, isAuthenticated, navigate, location]);
 
-  return <>Loading...</>;
+  return <LottieAnimation/>;
 };
 
 export default AuthCallbackPage;

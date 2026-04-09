@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { ShareGroupOrder } from "@/components/ShareGroupOrder";
 import GroupCheckoutButton from "@/components/GroupCheckoutButton";
+import LottieAnimation from "@/components/Load";
 
 
 export type CartItem = {
@@ -167,7 +168,7 @@ const DetailPage = () => {
   };
 
   if (isLoading || !restaurant) {
-    return "Loading...";
+    return <LottieAnimation/>;
   }
 
   return (

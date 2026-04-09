@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogTitle } from "./ui/dialog";
 import { ShareGroupOrder } from "./ShareGroupOrder";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { ChefHat, Clock, DollarSign, MapPin, Users } from "lucide-react";
+import LottieAnimation from "./Load";
 
 const JoinGroupPage = () => {
   const { user } = useAuth0();
@@ -61,8 +62,8 @@ const JoinGroupPage = () => {
 
   };
 
-  if (isLoading ) {
-    return "Loading...";
+  if (isLoading || isLinkLoading) {
+    return <LottieAnimation/>;
   }
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

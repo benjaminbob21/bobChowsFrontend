@@ -1,4 +1,5 @@
 import { useGetGroupOrders } from "@/api/OrderApi";
+import LottieAnimation from "@/components/Load";
 import OrderStatusDetail from "@/components/OrderStatusDetail";
 import OrderStatusHeader from "@/components/OrderStatusHeader";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
@@ -7,7 +8,7 @@ const GroupOrderStatusPage = () => {
   const { groupOrder, isLoading } = useGetGroupOrders();
 
   if (isLoading) {
-    return "Loading...";
+    return <LottieAnimation/>;
   }
 
   if (!groupOrder || groupOrder.length === 0) {

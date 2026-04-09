@@ -2,6 +2,7 @@ import { useGetReviews} from "@/api/MyRestaurantApi";
 import { useGetRestaurant } from "@/api/RestaurantApi";
 import { CircleUserRound, Star } from "lucide-react";
 import { useParams } from "react-router-dom";
+import LottieAnimation from "./Load";
 
 const DisplayReview = () => {
     const { restaurantId } = useParams();
@@ -12,7 +13,7 @@ const DisplayReview = () => {
   } = useGetReviews(restaurantId);
 
   if (isLoadingReviews) {
-    return <p>Loading reviews...</p>;
+    return <LottieAnimation/>;
   }
 
   if (error) {

@@ -1,4 +1,5 @@
 import { useGetMyUser, useUpdateMyUser } from "@/api/MyUserApi";
+import LottieAnimation from "@/components/Load";
 import UserProfileForm from "@/forms/user-profile-form/UserProfileForm";
 
 const UserProfilePage = () => {
@@ -6,7 +7,7 @@ const UserProfilePage = () => {
   const { updateUser, isLoading: isUpdateLoading } = useUpdateMyUser();
 
   if (isGetLoading) {
-    return <span>Loading...</span>;
+    return <LottieAnimation/>;
   }
 
   if (!currentUser) {
