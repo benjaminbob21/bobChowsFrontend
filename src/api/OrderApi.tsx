@@ -1,4 +1,4 @@
-import { Order } from "@/types";
+import { GroupOrder, Order } from "@/types";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useMutation, useQuery } from "react-query";
 import { toast } from "sonner";
@@ -33,6 +33,34 @@ export const useGetMyOrders = () => {
   return { orders, isLoading };
 };
 
+export const useGetGroupOrders = () => {
+  const { getAccessTokenSilently } = useAuth0();
+
+  const getGroupOrdersRequest = async (): Promise<GroupOrder[]> => {
+    const accessToken = await getAccessTokenSilently();
+
+    const response = await fetch(`${API_BASE_URL}/api/order/get-group`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to get group orders");
+    }
+
+    return response.json();
+  };
+
+  const { data: groupOrder, isLoading } = useQuery(
+    "fetchGroupOrders",
+    getGroupOrdersRequest,
+    { refetchInterval: 5000 }
+  );
+
+  return { groupOrder, isLoading };
+};
+
 type CheckoutSessionRequest = {
   cartItems: {
     menuItemId: string;
@@ -46,6 +74,114 @@ type CheckoutSessionRequest = {
     city: string;
   };
   restaurantId: string;
+  groupOrderId?: string;
+  amountPerPerson?: number;
+};
+
+type GroupOrderRequest = {
+  cartItems: {
+    menuItemId: string;
+    name: string;
+    quantity: string;
+  }[];
+  restaurantId: string;
+};
+
+type JoinOrderRequest = {
+  deliveryDetails: {
+    email: string;
+    name: string;
+  };
+  userId?: string;
+};
+
+export const useCreateGroupOrder = () => {
+  const { getAccessTokenSilently } = useAuth0();
+
+  const createGroupOrderRequest = async (
+    groupOrderRequest: GroupOrderRequest
+  ) => {
+    const accessToken = await getAccessTokenSilently();
+
+    const response = await fetch(`${API_BASE_URL}/api/order/group`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(groupOrderRequest),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Unable to create group order");
+    }
+
+    return response.json();
+  };
+
+  const {
+    mutateAsync: createGroupOrder,
+    isLoading,
+    error,
+    reset,
+  } = useMutation(createGroupOrderRequest);
+
+  if (error) {
+    toast.error(error.toString());
+    reset();
+  }
+
+  return {
+    createGroupOrder,
+    isLoading,
+  };
+}
+
+export const useJoinGroupOrder = () => {
+  const { getAccessTokenSilently } = useAuth0();
+
+  const joinOrderRequest = async (
+    groupOrderRequest: JoinOrderRequest
+  ) => {
+    const accessToken = await getAccessTokenSilently();
+
+    const response = await fetch(
+      `${API_BASE_URL}/api/order/join-group/:groupOrderId`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(groupOrderRequest),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Unable to join group order");
+    }
+
+    return response.json();
+  };
+
+  const {
+    mutateAsync: joinGroupOrder,
+    isLoading,
+    error,
+    reset,
+  } = useMutation(joinOrderRequest);
+
+  if (error) {
+    toast.error(error.toString());
+    reset();
+  }
+
+  return {
+    joinGroupOrder,
+    isLoading,
+  };
 };
 
 export const useCreateCheckoutSession = () => {

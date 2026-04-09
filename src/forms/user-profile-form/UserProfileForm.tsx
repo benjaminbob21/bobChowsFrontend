@@ -134,7 +134,7 @@ const UserProfileForm = ({
         {isLoading ? (
           <LoadingButton />
         ) : (
-          <Button type="submit" className="bg-purple-500">
+          <Button type="submit" className="bg-purple-500" disabled={!form.formState.isValid}>
             {buttonText}
           </Button>
         )}

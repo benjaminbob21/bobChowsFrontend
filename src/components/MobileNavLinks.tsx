@@ -13,6 +13,12 @@ const MobileNavLinks = () => {
         Order Status
       </Link>
       <Link
+        to="/group-order-status"
+        className="flex bg-white items-center font-bold hover:text-purple-500"
+      >
+        Group Order Status
+      </Link>
+      <Link
         to="/manage-restaurant"
         className="flex bg-white items-center font-bold hover:text-purple-500"
       >
