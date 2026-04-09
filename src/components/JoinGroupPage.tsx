@@ -193,9 +193,9 @@ const JoinGroupPage = () => {
               <div className="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
                 <span className="text-purple-500 font-bold text-xl">2</span>
               </div>
-              <h3 className="font-semibold mb-2">Place Your Order</h3>
+              <h3 className="font-semibold mb-2">Contribute your Share</h3>
               <p className="text-sm text-gray-600">
-                Select your items and add them to the group order
+                Navigate to checkout and pay your share of the group order
               </p>
             </div>
             <div className="text-center">
