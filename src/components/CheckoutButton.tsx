@@ -7,6 +7,7 @@ import UserProfileForm, {
 } from "@/forms/user-profile-form/UserProfileForm";
 import { useGetMyUser } from "@/api/MyUserApi";
 import LottieAnimation from "./Load";
+import LoadingButton from "./LoadingButton";
 
 type Props = {
   onCheckout: (userFormData: UserFormData) => void;
@@ -40,7 +41,12 @@ const CheckoutButton = ({ onCheckout, disabled, isLoading }: Props) => {
       </Button>
     );
   }
-  if (isAuthLoading || !currentUser || isLoading) {
+
+  if (isLoading || !currentUser) {
+    return <LoadingButton />;
+  }
+
+  if (isAuthLoading) {
     return <LottieAnimation/>;
   }
   return (

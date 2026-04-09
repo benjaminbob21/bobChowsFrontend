@@ -3,15 +3,24 @@ import { useState } from "react";
 import { Card, CardContent, CardHeader } from "./ui/card";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { CheckCircle, Copy } from "lucide-react";
+import { CheckCircle, Copy, QrCode } from "lucide-react";
+import QRCode from "react-qr-code";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "./ui/dialog";
 
 type Props = {
   shareableLink: string;
   groupOrder: GroupOrder;
-}
+};
 
-export const ShareGroupOrder = ({shareableLink, groupOrder}:Props) => {
+export const ShareGroupOrder = ({ shareableLink, groupOrder }: Props) => {
   const [copied, setCopied] = useState(false);
+  const [showQR, setShowQR] = useState(false);
 
   const copyToClipboard = async () => {
     try {
@@ -50,6 +59,36 @@ export const ShareGroupOrder = ({shareableLink, groupOrder}:Props) => {
                 )}
               </Button>
             </div>
+          </div>
+
+          <div className="flex justify-center">
+            <Dialog open={showQR} onOpenChange={setShowQR}>
+              <DialogTrigger asChild>
+                <Button variant="outline" className="w-full">
+                  <QrCode className="h-4 w-4 mr-2" />
+                  Show QR Code
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Scan QR Code to Join</DialogTitle>
+                </DialogHeader>
+                <div className="flex flex-col items-center justify-center p-6">
+                  <div className="p-4 bg-white rounded-lg">
+                    <QRCode
+                      value={shareableLink}
+                      size={200}
+                      style={{
+                        height: "auto",
+                        maxWidth: "100%",
+                        width: "100%",
+                      }}
+                      viewBox={`0 0 256 256`}
+                    />
+                  </div>
+                </div>
+              </DialogContent>
+            </Dialog>
           </div>
 
           <div className="bg-gray-50 p-4 rounded-lg text-center">

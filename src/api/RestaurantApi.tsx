@@ -43,21 +43,37 @@ export const useSearchRestaurants = (
       `${API_BASE_URL}/api/restaurant/search/${city}?${params.toString()}`
     );
 
+    const data = await response.json();
+
     if (!response.ok) {
-      throw new Error("Failed to get restaurant");
+      throw new Error(data.message || "Failed to get restaurants");
     }
 
-    return response.json();
+    return data;
   };
 
-  const { data: results, isLoading } = useQuery(
-    ["searchRestaurants", searchState],
+  const {
+    data: results,
+    isLoading,
+    error,
+    isError,
+  } = useQuery<RestaurantSearchResponse, Error>(
+    ["searchRestaurants", searchState, city], // Added city to dependency array
     createSearchRequest,
-    { enabled: !!city }
+    {
+      enabled: !!city,
+      staleTime: 60000, // Cache results for 1 minute
+      keepPreviousData: false, // Don't keep old results when query changes
+      retry: 1, // Only retry once on failure
+      onError: (error) => {
+        console.error("Search request failed:", error);
+      },
+    }
   );
 
   return {
     results,
     isLoading,
+    error: isError ? error : null,
   };
 };

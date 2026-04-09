@@ -8,10 +8,11 @@ import {
 import { useAuth0 } from "@auth0/auth0-react";
 import { Separator } from "./ui/separator";
 import { Button } from "./ui/button";
-import { Link } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 
 const UsernameMenu = () => {
   const { user, logout } = useAuth0();
+  const navigate = useNavigate();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center px-3 font-bold hover:text-purple-500 gap-2">
@@ -19,18 +20,18 @@ const UsernameMenu = () => {
         {user?.email}
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuItem>
-          <Link
-            to="/manage-restaurant"
-            className="font-bold hover:text-purple-500"
-          >
-            Manage Restaurant
-          </Link>
+        <DropdownMenuItem
+          onClick={() => navigate("/manage-restaurant")}
+          className="font-bold hover:text-purple-500"
+        >
+          Manage Restaurant
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link to="/user-profile" className="font-bold hover:text-purple-500">
-            User Profile
-          </Link>
+        <Separator />
+        <DropdownMenuItem
+          onClick={() => navigate("/user-profile")}
+          className="font-bold hover:text-purple-500"
+        >
+          User Profile
         </DropdownMenuItem>
         <Separator />
         <DropdownMenuItem>

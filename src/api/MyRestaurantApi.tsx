@@ -237,6 +237,7 @@ export const useSubmitReview = () => {
 
   if (isSuccess) {
     toast.success("Review submitted!");
+    reset();
   }
 
   if (isError && error instanceof Error) {

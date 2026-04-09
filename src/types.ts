@@ -62,6 +62,11 @@ export type Order = {
     city: string;
     email: string;
   };
+  paidParticipants: {
+    email: string;
+    amount: number;
+    user: User;
+  }[];
   totalAmount: number;
   status: OrderStatus;
   createdAt: string;

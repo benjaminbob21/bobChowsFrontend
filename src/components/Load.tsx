@@ -3,12 +3,12 @@ import animationData from "@/assets/restaurant-loader.json"
 
 const LottieAnimation = () => {
   return (
-    <div className="flex justify-center items-center h-full w-full">
+    <div className="absolute inset-0 flex items-center justify-center">
       <Player
         autoplay
         loop
         animationData={animationData} // Use animationData prop for JSON file
-        style={{ height: "250px", width: "250px" }}
+        style={{ height: "200px", width: "200px" }}
       />
     </div>
   );
