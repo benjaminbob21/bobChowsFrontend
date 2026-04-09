@@ -43,7 +43,7 @@ const AppRoutes = () => {
         path="/join-order/:groupOrderId"
         element={
           <Layout showHero={false}>
-            <DetailPage />
+            <JoinGroupPage />
           </Layout>
         }
       />
@@ -77,14 +77,6 @@ const AppRoutes = () => {
           element={
             <Layout>
               <ManageRestaurantPage />
-            </Layout>
-          }
-        />
-        <Route
-          path="/join-order/:groupOrderId"
-          element={
-            <Layout showHero={false}>
-              <JoinGroupPage />
             </Layout>
           }
         />

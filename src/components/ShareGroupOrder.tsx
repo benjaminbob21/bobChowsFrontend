@@ -34,8 +34,11 @@ export const ShareGroupOrder = ({shareableLink, groupOrder}:Props) => {
       <CardContent>
         <div className="space-y-4">
           <div>
-            <p className="text-sm text-gray-600 mb-2 text-center">
+            <p className="text-sm text-gray-600 text-center">
               Share this link with your group:
+            </p>
+            <p className="text-sm font-bold text-gray-600 mb-2 text-center">
+              Keep this link safe!
             </p>
             <div className="flex gap-2">
               <Input value={shareableLink} readOnly className="flex-1" />
@@ -51,8 +54,8 @@ export const ShareGroupOrder = ({shareableLink, groupOrder}:Props) => {
 
           <div className="bg-gray-50 p-4 rounded-lg text-center">
             <p className="font-medium">Order Status:</p>
-            <p>{remainingSpots} spots remaining</p>
-            <p>{groupOrder.paidParticipants.length} participants have paid</p>
+            <p>{remainingSpots} spot(s) remaining</p>
+            <p>{groupOrder.paidParticipants.length} participant(s) have paid</p>
           </div>
         </div>
       </CardContent>

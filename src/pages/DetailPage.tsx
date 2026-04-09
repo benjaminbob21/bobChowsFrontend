@@ -183,7 +183,7 @@ const DetailPage = () => {
         onOpenChange={setShowGroupOrderDialog}
       >
         <DialogContent className="sm:max-w-md">
-          <DialogTitle className="text-center">Link</DialogTitle>
+          <DialogTitle className="text-center"></DialogTitle>
           {groupOrderData && (
             <div className="items-center">
               <ShareGroupOrder

@@ -93,6 +93,7 @@ type JoinOrderRequest = {
     name: string;
   };
   userId?: string;
+  groupOrderId?: string
 };
 
 export const useCreateGroupOrder = () => {
@@ -139,6 +140,52 @@ export const useCreateGroupOrder = () => {
   };
 }
 
+type getLink = {
+  groupOrderId?: string;
+};
+
+export const useGetLinkAndOrder = () => {
+  const { getAccessTokenSilently } = useAuth0();
+
+  const getLinkAndOrder = async (
+    getLinkRequest: getLink
+  ) => {
+    const accessToken = await getAccessTokenSilently();
+
+    const response = await fetch(`${API_BASE_URL}/api/order/get-link`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(getLinkRequest),
+    });
+
+    if (!response.ok) {
+      throw new Error("Unable to get link and order");
+    }
+
+    return response.json();
+  };
+
+  const {
+    mutateAsync: getLink,
+    isLoading,
+    error,
+    reset,
+  } = useMutation(getLinkAndOrder);
+
+  if (error) {
+    toast.error(error.toString());
+    reset();
+  }
+
+  return {
+    getLink,
+    isLoading,
+  };
+};
+
 export const useJoinGroupOrder = () => {
   const { getAccessTokenSilently } = useAuth0();
 
@@ -160,7 +207,8 @@ export const useJoinGroupOrder = () => {
     );
 
     if (!response.ok) {
-      throw new Error("Unable to join group order");
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Unable to join group order");
     }
 
     return response.json();

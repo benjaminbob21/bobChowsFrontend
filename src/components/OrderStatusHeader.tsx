@@ -6,7 +6,8 @@ type Props = {
   order: Order;
 };
 
-const OrderStatusHeader = ({ order }: Props) => {
+const OrderStatusHeader = ({ order}: Props) => {
+  
   const getExpectedDelivery = () => {
     const created = new Date(order.createdAt);
 
@@ -30,9 +31,13 @@ const OrderStatusHeader = ({ order }: Props) => {
 
   return (
     <>
-      <h1 className="text-4xl font-bold tracking-tighter flex flex-col gap-5 md:flex-row md:justify-between">
+      <h1 className="text-3xl font-bold tracking-tighter flex flex-col gap-5 md:flex-row md:justify-between">
         <span>Order Status: {getOrderStatusInfo().label}</span>
-        <span>Expected by: {getExpectedDelivery()}</span>
+        {getOrderStatusInfo().label != "Awaiting Payment From Other Members" ? (
+          <span>Expected by: {getExpectedDelivery()}</span>
+        ) : (
+          ""
+        )}
       </h1>
       <Progress
         className="animate-pulse"
